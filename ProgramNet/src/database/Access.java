@@ -1,4 +1,5 @@
 package database;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,7 +8,7 @@ import java.sql.Statement;
 
 public class Access {
 	private static final String DB = "newstar";
-	
+
 	public static void main(String[] args) {
 		try {
 			// Buoc 1: Load driver
@@ -19,15 +20,24 @@ public class Access {
 			// Buoc 4: Execute
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Student");
 			// Buoc 5: Fetch data
-			while(rs.next()) {
+			while (rs.next()) {
 				String sid = rs.getString("SID");
 				String fn = rs.getString("FirstName");
 				String ln = rs.getString("LastName");
 				String cl = rs.getString("Class");
 				System.out.println("[" + sid + "]." + fn + " " + ln + ". Class:" + cl);
 			}
+			
+			String sql = "DELETE FROM Student";
+			Statement st = conn.createStatement();
+			int rs2 = st.executeUpdate(sql);
+			System.out.println(rs2);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}}}
+		}
+		
+		
+	}
+}

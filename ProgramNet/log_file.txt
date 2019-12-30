@@ -1,0 +1,4 @@
+Dec 30, 2019 11:06:19 PM database.MyLogger log
+SEVERE: [Microsoft][ODBC Driver Manager] Invalid descriptor index
+Dec 30, 2019 11:06:19 PM database.MyLogger log
+SEVERE: General error

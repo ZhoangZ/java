@@ -30,6 +30,11 @@ public class DateUtils {
 		}
 	}
 	public static String toString(Date date) {
-		return "19/09/2012";
+		String format = "DD/MM/YYYY";
+		
+		return format.replaceFirst("DD", date.getDate()+"").replaceFirst("MM", (date.getMonth()==0)?"12":date.getMonth()+"").replaceFirst("YYYY", (date.getYear()+1900-1)+"");
+	}
+	public static void main(String[] args) {
+		System.out.println(toString(getDate(12, 12, 2012)));
 	}
 }

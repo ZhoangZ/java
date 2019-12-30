@@ -8,10 +8,10 @@ public class CSDL {
 	public static void main(String[] args) {
 		try {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			String database ="jdbc:odbc:SV";
+			String database ="jdbc:odbc:newstar";
 			Connection conn;
 			conn = DriverManager.getConnection(database);
-			String sql = "SELECT * from Table1";
+			String sql = "SELECT * from Student";
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery(sql);
 			while(rs.next()){

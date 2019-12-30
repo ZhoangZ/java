@@ -1,14 +1,16 @@
-package database;
+package database.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionAccess implements ConnectionType {
-
+	public Connection con = null;
 	@Override
 	public Connection getConnection() throws ClassNotFoundException, SQLException {
-		Class.forName("sun.Jdbc.Odbc.JdbcOdbcDriver");
-		Connection con = DriverManager.getConnection("jdbc:odbc:book");
+		if(con==null) {
+		Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+		con = DriverManager.getConnection("jdbc:odbc:newstar2");
+		}
 		return con;
 	}
 

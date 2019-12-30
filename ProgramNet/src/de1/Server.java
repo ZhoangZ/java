@@ -23,8 +23,8 @@ public class Server {
 	public static void main(String[] args) throws IOException {
 		listUser = new ArrayList<User>();
 		listUser.add(new User("hoang", "123"));
-		ServerSocket serverSocket1= new ServerSocket(port1);
-		ServerSocket serverSocket2 = new ServerSocket(port2);
+		final ServerSocket serverSocket1= new ServerSocket(port1);
+		final ServerSocket serverSocket2 = new ServerSocket(port2);
 		Thread thread1 = new Thread(new Runnable() {
 			
 			@Override
