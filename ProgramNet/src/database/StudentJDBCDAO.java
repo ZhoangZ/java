@@ -10,10 +10,11 @@ import java.util.Date;
 import java.util.List;
 
 public class StudentJDBCDAO {
+	public static Connection con = null;
 	public static Student findStudentsBySID(String sid) throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
+		
 		if (con == null)
-			return null;
+			con = DBConnection.DEFAULT.getConnection();
 		try {
 			String sql = "SELECT first_name, last_name, birthday, birthplace FROM student WHERE sid = ?";
 			PreparedStatement st = con.prepareStatement(sql);
@@ -38,10 +39,13 @@ public class StudentJDBCDAO {
 
 	public static List<Student> findStudentsByField(String field, String value)
 			throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
+		
 		List<Student> list = new ArrayList<Student>();
-		if (con == null)
-			return list;
+		if (con == null) {
+			 con = DBConnection.DEFAULT.getConnection();
+		}
+			
+			
 		try {
 			String sql = "SELECT sid, first_name, last_name, birthday, birthplace FROM student WHERE ? = ?";
 			PreparedStatement st = con.prepareStatement(sql);
@@ -65,10 +69,10 @@ public class StudentJDBCDAO {
 	}
 
 	public static List<Student> getAllStudents() throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
+		 
 		List<Student> list = new ArrayList<Student>();
 		if (con == null)
-			return list;
+			con = DBConnection.DEFAULT.getConnection();
 		try {
 			String sql = "SELECT sid, first_name, last_name, birthday, birthplace FROM student";
 			Statement st = con.createStatement();
@@ -90,12 +94,13 @@ public class StudentJDBCDAO {
 	}
 
 	public static boolean insertStudent(Student student) throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
-		if (con == null)
-			return false;
+		
+		
 		if (findStudentsBySID(student.getSid()) != null) {
 			return false;
 		}
+		if (con == null)
+			 con = DBConnection.DEFAULT.getConnection();
 		try {
 			String sql = "INSERT INTO student VALUES(?, ?, ?, ?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
@@ -114,9 +119,9 @@ public class StudentJDBCDAO {
 	}
 
 	public static boolean updateStudent(Student student) throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
+		
 		if (con == null)
-			return false;
+			 con = DBConnection.DEFAULT.getConnection();
 		try {
 			String sql = "UPDATE student SET first_name = ?, last_name = ?, birthday = ?, birthplace = ? WHERE sid = ?";
 			PreparedStatement st = con.prepareStatement(sql);
@@ -126,6 +131,10 @@ public class StudentJDBCDAO {
 			st.setDate(3, new java.sql.Date(student.getBirthday().getTime()));
 			st.setString(4, student.getBirthplace());
 			int rs = st.executeUpdate();
+			//con.setAutoCommit(true);
+			//con.commit();
+			//con.close();
+			//st.close();
 			return (rs > 0);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -135,9 +144,9 @@ public class StudentJDBCDAO {
 	}
 
 	public static boolean deleteStudent(Student student) throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
+		
 		if (con == null)
-			return false;
+			 con = DBConnection.DEFAULT.getConnection();
 		try {
 			String sql = "DELETE FROM student WHERE sid = ?";
 			PreparedStatement st = con.prepareStatement(sql);
@@ -152,21 +161,19 @@ public class StudentJDBCDAO {
 	}
 
 	public static boolean deleteAllStudent() throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
+		
 		if (con == null)
-			return false;
+			 con = DBConnection.DEFAULT.getConnection();
 		try {
 			String sql = "DELETE FROM student";
 			int rs=0;
 
 			PreparedStatement st2 = con.prepareStatement(sql);
 			rs = st2.executeUpdate();
-			System.out.println(rs);
+			System.out.println("Số record đã xoá: "+rs);
 			st2.close();
-//			Statement st = con.createStatement();
-//			rs = st.executeUpdate(sql);
-//			System.out.println(rs);
-//			st.close();
+			st2.closeOnCompletion();
+
 			
 			return (rs > 0);
 		} catch (SQLException e) {
@@ -177,6 +184,7 @@ public class StudentJDBCDAO {
 	}
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		//System.out.println("Delete All: "+"\t"+deleteAllStudent());
 		Student s1 = new Student("001", "Nguyen Van", "A", new java.util.Date(), "Can Tho");
 		Student s2 = new Student("002", "Nguyen Van", "B", new java.util.Date(), "Tp. HCM");
 		Student s3 = new Student("003", "Nguyen Van", "C", new java.util.Date(), "Tp. Hai Phong");
@@ -189,13 +197,19 @@ public class StudentJDBCDAO {
 		System.out.println("Insert: "+s1.getSid()+"\t"+insertStudent(s1));
 		System.out.println("Insert: "+s2.getSid()+"\t"+insertStudent(s2));
 		System.out.println("Insert: "+s3.getSid()+"\t"+insertStudent(s3));
-		System.out.println("Update: "+s4.getSid()+"\t"+updateStudent(s4));
+		
 		//System.out.println("Delete: "+s3.getSid()+"\t"+deleteStudent(s3));
 		System.out.println("----------------------------------------------");
+		
+		//System.out.println("Delete All: "+"\t"+deleteAllStudent());
+		
 		list = getAllStudents();
 		for (Student s : list) {
 			System.out.println(s.toString());
 		}
-		System.out.println("Delete All: "+"\t"+deleteAllStudent());
+		System.out.println("Update: "+s4.getSid()+"\t"+updateStudent(s4));
+		//System.out.println("Delete All: "+"\t"+deleteAllStudent());
+		if(con!=null)
+		con.close();
 	}
 }

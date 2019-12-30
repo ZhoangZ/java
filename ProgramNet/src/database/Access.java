@@ -15,6 +15,12 @@ public class Access {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 			// Buoc 2: Tao ket noi xuong CSDL: URL (jdbc:dbms:database
 			Connection conn = DriverManager.getConnection("jdbc:odbc:" + DB);
+			//Xoá hết tất cả record
+			String sql = "DELETE FROM Student";
+			Statement st = conn.createStatement();
+			int rs2 = st.executeUpdate(sql);
+			System.out.println(rs2);
+			
 			// Buoc 3: Tao Statement
 			Statement stmt = conn.createStatement();
 			// Buoc 4: Execute
@@ -28,10 +34,7 @@ public class Access {
 				System.out.println("[" + sid + "]." + fn + " " + ln + ". Class:" + cl);
 			}
 			
-			String sql = "DELETE FROM Student";
-			Statement st = conn.createStatement();
-			int rs2 = st.executeUpdate(sql);
-			System.out.println(rs2);
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

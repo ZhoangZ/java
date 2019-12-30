@@ -1,4 +1,10 @@
-Dec 30, 2019 11:06:19 PM database.MyLogger log
-SEVERE: [Microsoft][ODBC Driver Manager] Invalid descriptor index
-Dec 30, 2019 11:06:19 PM database.MyLogger log
-SEVERE: General error
+Dec 31, 2019 1:15:36 AM database.MyLogger log
+SEVERE: [Microsoft][ODBC Microsoft Access Driver] Invalid SQL statement; expected 'DELETE', 'INSERT', 'PROCEDURE', 'SELECT', or 'UPDATE'.
+Dec 31, 2019 1:15:36 AM database.MyLogger log
+SEVERE: [Microsoft][ODBC Microsoft Access Driver] Invalid SQL statement; expected 'DELETE', 'INSERT', 'PROCEDURE', 'SELECT', or 'UPDATE'.
+Dec 31, 2019 1:15:36 AM database.MyLogger log
+SEVERE: [Microsoft][ODBC Microsoft Access Driver] Invalid SQL statement; expected 'DELETE', 'INSERT', 'PROCEDURE', 'SELECT', or 'UPDATE'.
+Dec 31, 2019 1:15:36 AM database.MyLogger log
+SEVERE: [Microsoft][ODBC Microsoft Access Driver] Invalid SQL statement; expected 'DELETE', 'INSERT', 'PROCEDURE', 'SELECT', or 'UPDATE'.
+Dec 31, 2019 1:15:36 AM database.MyLogger log
+SEVERE: [Microsoft][ODBC Microsoft Access Driver] Invalid SQL statement; expected 'DELETE', 'INSERT', 'PROCEDURE', 'SELECT', or 'UPDATE'.

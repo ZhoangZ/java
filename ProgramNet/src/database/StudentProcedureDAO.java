@@ -8,9 +8,10 @@ import java.util.Date;
 import java.util.List;
 
 public class StudentProcedureDAO {
+	public static Connection con = null;
 	public static Student findStudentsBySID(String sid) throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
-		if (con == null) return null;
+		if (con == null) 
+			con = DBConnection.DEFAULT.getConnection();
 		try {
 			String call = "CALL find_student_by_sid(?)";
 			CallableStatement st = con.prepareCall(call);
@@ -33,9 +34,9 @@ public class StudentProcedureDAO {
 		}
 	}
 	public static List<Student> findStudentsByField(String field, String value) throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
 		List<Student> list = new ArrayList<Student>();
-		if (con == null) return list;
+		if (con == null)
+		con = DBConnection.DEFAULT.getConnection();
 		try {
 			String call = "CALL find_student_by_field(?, ?)";
 			CallableStatement st = con.prepareCall(call);
@@ -58,9 +59,9 @@ public class StudentProcedureDAO {
 		return list;
 	}
 public static List<Student> getAllStudents() throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
+		if (con == null) 
+			con = DBConnection.DEFAULT.getConnection();
 		List<Student> list = new ArrayList<Student>();
-		if (con == null) return list;
 		try {
 			String call = "CALL get_all_students()";
 			CallableStatement st = con.prepareCall(call);
@@ -81,8 +82,8 @@ public static List<Student> getAllStudents() throws ClassNotFoundException, SQLE
 		return list;
 	}
 	public static boolean insertStudent(Student student) throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
-		if (con == null) return false;
+		if (con == null) 
+		con = DBConnection.DEFAULT.getConnection();
 		try {
 			String call = "CALL insert_student(?, ?, ?, ?, ?)";
 			CallableStatement st = con.prepareCall(call);
@@ -102,8 +103,8 @@ public static List<Student> getAllStudents() throws ClassNotFoundException, SQLE
 		}
 	}
 	public static boolean updateStudent(Student student) throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
-		if (con == null) return false;
+		if (con == null) 
+		con = DBConnection.DEFAULT.getConnection();
 		try {
 			String call = "CALL update_student(?, ?, ?, ?, ?)";
 			CallableStatement st = con.prepareCall(call);
@@ -121,8 +122,8 @@ public static List<Student> getAllStudents() throws ClassNotFoundException, SQLE
 		}
 	}
 	public static boolean deleteStudent(Student student) throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
-		if (con == null) return false;
+		if (con == null) 
+		con = DBConnection.DEFAULT.getConnection();
 		try {
 			String call = "CALL delete_student(?)";
 			CallableStatement st = con.prepareCall(call);
@@ -136,8 +137,8 @@ public static List<Student> getAllStudents() throws ClassNotFoundException, SQLE
 		}
 	}
 	public static boolean deleteAllStudent() throws ClassNotFoundException, SQLException {
-		Connection con = DBConnection.DEFAULT.getConnection();
-		if (con == null) return false;
+		if (con == null) 
+		con = DBConnection.DEFAULT.getConnection();
 		try {
 			String call = "CALL delete_all_student()";
 			CallableStatement st = con.prepareCall(call);
