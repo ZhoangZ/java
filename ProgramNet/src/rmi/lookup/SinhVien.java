@@ -1,4 +1,4 @@
-package p2;
+package rmi.lookup;
 import java.io.Serializable;
 
 public class SinhVien implements Serializable{

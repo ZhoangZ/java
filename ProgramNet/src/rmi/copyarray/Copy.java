@@ -1,4 +1,4 @@
-package p3;
+package rmi.copyarray;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

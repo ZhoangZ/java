@@ -1,4 +1,4 @@
-package p2;
+package rmi.lookup;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;

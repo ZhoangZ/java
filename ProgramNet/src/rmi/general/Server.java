@@ -1,12 +1,12 @@
-package p1;
+package rmi.general;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import p2.SinhVien;
-import p2.SinhVienDAO;
+import rmi.lookup.SinhVien;
+import rmi.lookup.SinhVienDAO;
 
 public class Server {
 	public Server() throws RemoteException {

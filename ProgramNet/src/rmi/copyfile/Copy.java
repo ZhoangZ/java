@@ -1,4 +1,4 @@
-package p4;
+package rmi.copyfile;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

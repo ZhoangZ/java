@@ -1,4 +1,4 @@
-package p4;
+package rmi.copyfile;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
