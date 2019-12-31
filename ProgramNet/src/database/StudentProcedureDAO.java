@@ -1,4 +1,5 @@
 package database;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,19 +10,20 @@ import java.util.List;
 
 public class StudentProcedureDAO {
 	public static Connection con = null;
+
 	public static Student findStudentsBySID(String sid) throws ClassNotFoundException, SQLException {
-		if (con == null) 
+		if (con == null)
 			con = DBConnection.DEFAULT.getConnection();
 		try {
-			String call = "CALL find_student_by_sid(?)";
+			String call = "{call find_student_by_sid(?)}";
 			CallableStatement st = con.prepareCall(call);
 			st.setString(1, sid);
 			ResultSet rs = st.executeQuery();
-			if(rs.next()) {
-				String fn = rs.getString(0);
-				String ln = rs.getString(1);
-				Date bd = rs.getDate(2);
-				String bp = rs.getString(3);
+			if (rs.next()) {
+				String fn = rs.getString(1);
+				String ln = rs.getString(2);
+				Date bd = rs.getDate(3);
+				String bp = rs.getString(4);
 				Student s = new Student(sid, fn, ln, bd, bp);
 				return s;
 			} else {
@@ -33,17 +35,19 @@ public class StudentProcedureDAO {
 			return null;
 		}
 	}
-	public static List<Student> findStudentsByField(String field, String value) throws ClassNotFoundException, SQLException {
+
+	public static List<Student> findStudentsByField(String field, String value)
+			throws ClassNotFoundException, SQLException {
 		List<Student> list = new ArrayList<Student>();
 		if (con == null)
-		con = DBConnection.DEFAULT.getConnection();
+			con = DBConnection.DEFAULT.getConnection();
 		try {
-			String call = "CALL find_student_by_field(?, ?)";
+			String call = "{CALL find_student_by_field(?, ?)}";
 			CallableStatement st = con.prepareCall(call);
 			st.setString(1, field);
 			st.setString(2, value);
 			ResultSet rs = st.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				String sid = rs.getString(0);
 				String fn = rs.getString(1);
 				String ln = rs.getString(2);
@@ -58,20 +62,21 @@ public class StudentProcedureDAO {
 		}
 		return list;
 	}
-public static List<Student> getAllStudents() throws ClassNotFoundException, SQLException {
-		if (con == null) 
+
+	public static List<Student> getAllStudents() throws ClassNotFoundException, SQLException {
+		if (con == null)
 			con = DBConnection.DEFAULT.getConnection();
 		List<Student> list = new ArrayList<Student>();
 		try {
-			String call = "CALL get_all_students()";
+			String call = "{CALL get_all_students()}";
 			CallableStatement st = con.prepareCall(call);
 			ResultSet rs = st.executeQuery();
-			while(rs.next()) {
-				String sid = rs.getString(0);
-				String fn = rs.getString(1);
-				String ln = rs.getString(2);
-				Date bd = rs.getDate(3);
-				String bp = rs.getString(4);
+			while (rs.next()) {
+				String sid = rs.getString(1);
+				String fn = rs.getString(2);
+				String ln = rs.getString(3);
+				Date bd = rs.getDate(4);
+				String bp = rs.getString(5);
 				Student s = new Student(sid, fn, ln, bd, bp);
 				list.add(s);
 			}
@@ -81,11 +86,12 @@ public static List<Student> getAllStudents() throws ClassNotFoundException, SQLE
 		}
 		return list;
 	}
+
 	public static boolean insertStudent(Student student) throws ClassNotFoundException, SQLException {
-		if (con == null) 
-		con = DBConnection.DEFAULT.getConnection();
+		if (con == null)
+			con = DBConnection.DEFAULT.getConnection();
 		try {
-			String call = "CALL insert_student(?, ?, ?, ?, ?)";
+			String call = "{CALL insert_student(?, ?, ?, ?, ?)}";
 			CallableStatement st = con.prepareCall(call);
 			st.setString(1, student.getSid());
 			st.setString(2, student.getFirstName());
@@ -102,9 +108,10 @@ public static List<Student> getAllStudents() throws ClassNotFoundException, SQLE
 			return false;
 		}
 	}
+
 	public static boolean updateStudent(Student student) throws ClassNotFoundException, SQLException {
-		if (con == null) 
-		con = DBConnection.DEFAULT.getConnection();
+		if (con == null)
+			con = DBConnection.DEFAULT.getConnection();
 		try {
 			String call = "CALL update_student(?, ?, ?, ?, ?)";
 			CallableStatement st = con.prepareCall(call);
@@ -121,9 +128,10 @@ public static List<Student> getAllStudents() throws ClassNotFoundException, SQLE
 			return false;
 		}
 	}
+
 	public static boolean deleteStudent(Student student) throws ClassNotFoundException, SQLException {
-		if (con == null) 
-		con = DBConnection.DEFAULT.getConnection();
+		if (con == null)
+			con = DBConnection.DEFAULT.getConnection();
 		try {
 			String call = "CALL delete_student(?)";
 			CallableStatement st = con.prepareCall(call);
@@ -136,11 +144,12 @@ public static List<Student> getAllStudents() throws ClassNotFoundException, SQLE
 			return false;
 		}
 	}
+
 	public static boolean deleteAllStudent() throws ClassNotFoundException, SQLException {
-		if (con == null) 
-		con = DBConnection.DEFAULT.getConnection();
+		if (con == null)
+			con = DBConnection.DEFAULT.getConnection();
 		try {
-			String call = "CALL delete_all_student()";
+			String call = "{CALL delete_all_student()}";
 			CallableStatement st = con.prepareCall(call);
 			int rs = st.executeUpdate();
 			return (rs > 0);
@@ -150,13 +159,22 @@ public static List<Student> getAllStudents() throws ClassNotFoundException, SQLE
 			return false;
 		}
 	}
+
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		Student s1 = new Student("001", "Nguyen Van", "A", new java.util.Date(), "Can Tho");
-		Student s2 = new Student("002", "Nguyen Van", "B", new java.util.Date(), "Tp. HCM");
-		Student s3 = new Student("002", "Nguyen Van", "C", new java.util.Date(), "Tp. HCM");
-		deleteAllStudent();
-		insertStudent(s1);
-		insertStudent(s2);
-		updateStudent(s3);
-		deleteStudent(s3);
-	}}
+		Student s1 = new Student("006", "Nguyen Van", "A", new java.util.Date(), "Can Tho");
+		Student s2 = new Student("007", "Nguyen Van", "B", new java.util.Date(), "Tp. HCM");
+		Student s3 = new Student("008", "Nguyen Van", "C", new java.util.Date(), "Tp. HCM");
+		System.out.println(findStudentsBySID("001"));
+		System.out.println("----------------------------------------------");
+		List<Student> list = getAllStudents();
+		for (Student s : list) {
+			System.out.println(s.toString());
+		}
+		// deleteAllStudent();
+		//insertStudent(s1);
+//		insertStudent(s2);
+//		insertStudent(s3);
+		// updateStudent(s3);
+		// deleteStudent(s3);
+	}
+}

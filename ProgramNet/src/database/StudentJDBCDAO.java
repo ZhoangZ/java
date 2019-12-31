@@ -184,7 +184,7 @@ public class StudentJDBCDAO {
 	}
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		//System.out.println("Delete All: "+"\t"+deleteAllStudent());
+		System.out.println("Delete All: "+"\t"+deleteAllStudent());
 		Student s1 = new Student("001", "Nguyen Van", "A", new java.util.Date(), "Can Tho");
 		Student s2 = new Student("002", "Nguyen Van", "B", new java.util.Date(), "Tp. HCM");
 		Student s3 = new Student("003", "Nguyen Van", "C", new java.util.Date(), "Tp. Hai Phong");
@@ -211,5 +211,6 @@ public class StudentJDBCDAO {
 		//System.out.println("Delete All: "+"\t"+deleteAllStudent());
 		if(con!=null)
 		con.close();
+		//con.commit();
 	}
 }
