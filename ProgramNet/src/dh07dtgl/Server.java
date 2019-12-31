@@ -15,6 +15,7 @@ public class Server {
 	static int port = 2000;
 
 	public static void main(String[] args) throws IOException {
+		List<KetQuaXoSo>list =KetQuaXoSo.loadFile("D:/Test/kqxs.txt");
 		DatagramSocket datagramSocket = new DatagramSocket(port);
 		int length=1024*5;
 		byte [] bufSend = new byte[length];
@@ -35,8 +36,14 @@ public class Server {
 				quit=true;
 				break;
 			case "XOSO":
-				List<KetQuaXoSo>list =KetQuaXoSo.loadFile("D:/Test/kqxs.txt");
-				String message= list.get(0).toString();
+				String message = "Tỉnh không đúng";
+				if(messArrays.length>=2)
+				for (KetQuaXoSo kqxs : list) {
+					if(kqxs.getTinh().equalsIgnoreCase(messArrays[1])) {
+						message= kqxs.toString();
+						break;
+					}
+				}
 				ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
 				DataOutputStream dataOutputStream = new DataOutputStream(byteOutputStream);
 				dataOutputStream.writeUTF(message);
