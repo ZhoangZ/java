@@ -21,20 +21,82 @@ public class Client {
 		String key="";
 		StringTokenizer stringTokenizer=null;
 		String message;
-		
-		message= br.readLine();
-		stringTokenizer= new StringTokenizer(message, " ");
-		key = stringTokenizer.nextToken().toUpperCase().trim();
-		switch (key) {
-		case "QUIT":
-			dataOutputStream.writeUTF(message);
-			dataOutputStream.flush();
-			break;
-
-		default:
-			break;
+		String respone="";
+		boolean login=false;
+		while(!login) {
+			System.out.println("Welcome. login <Account number> <Pin code>");
+			message= br.readLine();
+			stringTokenizer= new StringTokenizer(message, " ");
+			key = stringTokenizer.nextToken().toUpperCase().trim();
+			switch (key) {
+			case "LOGIN":
+				dataOutputStream.writeUTF(message);
+				respone=dataInputStream.readUTF();
+				System.out.println(respone);
+				if(respone.equals("Log in success.")) {
+					login=true;
+				}
+				
+				break;
+			case "QUIT":
+				dataOutputStream.writeUTF(message);
+				dataOutputStream.flush();
+				System.exit(0);
+				break;
+	
+			default:
+				break;
+			}
 		}
-		
+		while(true) {
+			System.out.println("Enter service...");
+			message= br.readLine();
+			stringTokenizer= new StringTokenizer(message, " ");
+			key = stringTokenizer.nextToken().toUpperCase().trim();
+			switch (key) {
+			
+			case "QUIT":
+				dataOutputStream.writeUTF(message);
+				dataOutputStream.flush();
+				System.exit(0);
+				break;
+			case "GETBALANCE":
+				dataOutputStream.writeUTF(message);
+				dataOutputStream.flush();
+				respone=dataInputStream.readUTF();
+				System.out.println(respone);
+				
+				break;
+			case "WITHDRAW":
+				dataOutputStream.writeUTF(message);
+				dataOutputStream.flush();
+				respone=dataInputStream.readUTF();
+				System.out.println(respone);
+				break;
+			case "DEPOSIT":
+				dataOutputStream.writeUTF(message);
+				dataOutputStream.flush();
+				respone=dataInputStream.readUTF();
+				System.out.println(respone);
+				break;
+			case "TRANSFER":
+				dataOutputStream.writeUTF(message);
+				dataOutputStream.flush();
+				respone=dataInputStream.readUTF();
+				System.out.println(respone);
+				break;
+			case "REPORT":
+				dataOutputStream.writeUTF(message);
+				dataOutputStream.flush();
+				respone=dataInputStream.readUTF();
+				System.out.println(respone);
+				break;
+			
+	
+			default:
+				break;
+			}
+		}
 	}
 
 }

@@ -9,18 +9,19 @@ import java.sql.Statement;
 
 public class ConnectionDB {
 	static Connection con;
-	private static void createConnection() throws ClassNotFoundException, SQLException {
+	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		if(con==null||con.isClosed()) {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 			con=DriverManager.getConnection("jdbc:odbc:LTMANG");
 		}
+		return con;
 	}
 	public static Statement createStatement() throws ClassNotFoundException, SQLException {
-		createConnection();
+		getConnection();
 		return con.createStatement();
 	}
 	public static  PreparedStatement prepareStatement(String sql) throws ClassNotFoundException, SQLException {
-		createConnection();
+		getConnection();
 		return con.prepareStatement(sql);
 	}
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
@@ -30,7 +31,7 @@ public class ConnectionDB {
 		while(rs.next()) {
 			System.out.println(rs.getString(1));
 		}
-		
+		ConnectionDB.getConnection().close();
 	}
 
 }
