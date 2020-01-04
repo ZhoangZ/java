@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "hellojni.h": "c"
+        "hellojni.h": "c",
+        "cstdarg": "cpp",
+        "cstdio": "cpp"
     }
 }
