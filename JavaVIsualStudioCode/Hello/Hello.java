@@ -9,6 +9,7 @@ public class Hello {
         
        // String message=br.readLine();
         byte[] buffer = new byte[1024];
+        //Test
         int bytesRead = System.in.read(buffer);
         byte[] data = new byte[bytesRead];
         System.arraycopy(buffer, 0, data, 0, bytesRead);
