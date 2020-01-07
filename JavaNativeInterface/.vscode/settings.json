@@ -2,6 +2,9 @@
     "files.associations": {
         "hellojni.h": "c",
         "cstdarg": "cpp",
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "*.tcc": "cpp"
     }
 }

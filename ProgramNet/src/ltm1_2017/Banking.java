@@ -37,8 +37,8 @@ public class Banking {
 		pre.setString(1, account.getAcountNumber());
 		pre.setDate(2, new java.sql.Date(new Date().getTime()));
 		pre.setString(3, "RUT  ");
-		pre.setLong(4, amount);
-		pre.setLong(5, amount);
+		pre.setInt(4, amount);
+		pre.setInt(5, amount);
 		pre.executeUpdate();
 		return rs;
 	}
@@ -63,26 +63,26 @@ public class Banking {
 	//Chuyển khoản
 	static boolean transfer(Account fromAccount, Account toAccount, int amount) throws ClassNotFoundException, SQLException {
 //		Access không có transaction 
-		//Connection c=ConnectionDB.getConnection();
+		Connection c=ConnectionDB.getConnection();
 //		try {
-//			
-//			c.setAutoCommit(false);
+			
+			c.setAutoCommit(false);
 //		} catch (Exception e) {
 //			System.out.println("Error");
 //			return false;
 //		}
-		
+//		
 		if(!withdraw(fromAccount, amount)) {
-			//c.rollback();
+			c.rollback();
 			return false;
 		}
 		if(!deposit(toAccount, amount)) {
-			//c.rollback();
-			deposit(fromAccount, amount);
+			c.rollback();
+			//deposit(fromAccount, amount);
 			return false;
 		}
-//		c.setAutoCommit(true);
-//		c.commit();
+		c.setAutoCommit(true);
+		c.commit();
 		PreparedStatement pre = ConnectionDB.prepareStatement("INSERT INTO LOG(ACCOUNT_NUMBER,NGAY, THAO_TAC,SO_LUONG, TONG) VALUES(?,?,?,?,?);");
 		pre.setString(1, fromAccount.getAcountNumber());
 		pre.setDate(2, new java.sql.Date(new Date().getTime()));
